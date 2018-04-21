@@ -21,11 +21,17 @@ class RoomList extends Component{
 
 	createRoom(e){
 		e.preventDefault();
-		const newRoomName = this.state.newRoomName;
+		const inputText = document.getElementById("crname").value;
+		if(inputText.length < 5){
+			alert("Room name must be at least 5 characters");
+		}
+		else{
+			const newRoomName = this.state.newRoomName;
 		this.roomsRef.push({ 
 			name: newRoomName
 		});
 		this.setState({ newRoomName: "" });
+		}
 	}
 
 	handleNameChange(e){
@@ -41,8 +47,9 @@ class RoomList extends Component{
 				</ul>
 				<form onSubmit={ (e) => this.createRoom(e) }>
 					Start a new chat room: 
-					<input type="text" 
-							placeHolder="e.g. My Room"
+					<input id="crname" 
+							type="text" 
+							placeholder="e.g. My Room"
 							value={ this.state.newRoomName }
 							onChange={ (e) => this.handleNameChange(e) } />
 					<input type="submit" value="Create New Room" />
