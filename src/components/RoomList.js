@@ -4,8 +4,10 @@ class RoomList extends Component{
   constructor(props) {
     super(props);
     this.state = {
-      rooms: []
+      rooms: [],
+      newRoomName: ""
     };
+    this.createRoom = this.createRoom.bind(this);
     this.roomsRef = this.props.firebase.database().ref('rooms');
   }
 
@@ -15,7 +17,20 @@ class RoomList extends Component{
 	    room.key = snapshot.key;
 	    this.setState({ rooms: this.state.rooms.concat( room ) })
 	  	});
-	  }
+	}
+
+	createRoom(e){
+		e.preventDefault();
+		const newRoomName = this.state.newRoomName;
+		this.roomsRef.push({ 
+			name: newRoomName
+		});
+		this.setState({ newRoomName: "" });
+	}
+
+	handleNameChange(e){
+		this.setState({ newRoomName: e.target.value });
+	}
 	render(){
 		return(
 			<div className="roomlist">
@@ -24,6 +39,14 @@ class RoomList extends Component{
 					return(<li className="room" key={index}>{room.name}</li>)
 					})}
 				</ul>
+				<form onSubmit={ (e) => this.createRoom(e) }>
+					Start a new chat room: 
+					<input type="text" 
+							placeHolder="e.g. My Room"
+							value={ this.state.newRoomName }
+							onChange={ (e) => this.handleNameChange(e) } />
+					<input type="submit" value="Create New Room" />
+				</form>
 			</div>
 		);
 	}
