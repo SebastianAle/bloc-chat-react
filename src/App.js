@@ -46,16 +46,16 @@ class App extends Component {
       <div>
         <header>
           <h1>Bloc Chat</h1>
-          <User firebase={firebase} setUser={this.setUser.bind(this)} username={this.state.username}/>
+          <User firebase={firebase} setUser={this.setUser.bind(this)} username={this.state.username} />
         </header>
         <aside>
-          <RoomList firebase={firebase} activeRoom={this.handleActiveRoom.bind(this)}/>
+          <RoomList firebase={firebase} activeRoom={this.handleActiveRoom.bind(this)} />
         </aside>
         <div>
           <h2>{this.state.activeRoom.name}</h2>
         </div>
         <main>
-          <MessageList firebase={firebase} activeRoomKey={this.state.activeRoomKey}/>
+          <MessageList firebase={firebase} activeRoomKey={this.state.activeRoomKey} username={this.state.username} />
         </main>
       </div>
     );

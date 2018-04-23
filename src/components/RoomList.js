@@ -45,11 +45,12 @@ class RoomList extends Component {
   render() {
     return(
         <div className='roomlist'>
-          <ul>{this.state.rooms.map( (room, index) => {
-                return(
-                    <div className='room' key={index} onClick={ (e) => this.selectRoom(room, e) }>{room.name}</div>
-                );
-              })}
+          <ul>
+            {this.state.rooms.map( (room, index) => {
+              return(
+                <div className='room' key={index} onClick={ (e) => this.selectRoom(room, e) }>{room.name}</div>
+              );
+            })}
           </ul>
           <form onSubmit={ (e) => this.createRoom(e) }> Start a new chat room:
             <input id='crname' type='text' placeholder='e.g. My Room' value={this.state.newRoomName} onChange={ (e) => this.handleNameChange(e) } />
