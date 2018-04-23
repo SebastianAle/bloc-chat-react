@@ -14,49 +14,49 @@ class RoomList extends Component {
   }
 
   componentDidMount() {
-	this.roomsRef.on('child_added', snapshot => {
-	  const room = snapshot.val();
-	  room.key = snapshot.key;
-	  this.setState({ rooms: this.state.rooms.concat(room) })
-	});
+    this.roomsRef.on('child_added', snapshot => {
+      const room = snapshot.val();
+      room.key = snapshot.key;
+      this.setState({ rooms: this.state.rooms.concat(room) })
+    });
   }
 
   createRoom(e) {
-  	e.preventDefault();
-	const inputText = document.getElementById('crname').value;
-	
-	if(inputText.length < 5) {
-		alert('Room name must be at least 5 characters');
-	} else {
-		const newRoomName = this.state.newRoomName;
-		this.roomsRef.push({ name: newRoomName });
-		this.setState({ newRoomName: '' });
-	}
+    e.preventDefault();
+    const inputText = document.getElementById('crname').value;
+    
+    if(inputText.length < 5) {
+        alert('Room name must be at least 5 characters');
+    } else {
+        const newRoomName = this.state.newRoomName;
+        this.roomsRef.push({ name: newRoomName });
+        this.setState({ newRoomName: '' });
+    }
   }
 
   handleNameChange(e) {
-	this.setState({ newRoomName: e.target.value });
+    this.setState({ newRoomName: e.target.value });
   }
 
   selectRoom(room) {
-  	this.props.activeRoom(room);
+    this.props.activeRoom(room);
   }
 
   render() {
-  	return(
-  		<div className='roomlist'>
-  		  <ul>{this.state.rooms.map( (room, index) => {
-  		  		return(
-  		  			<div className='room' key={index} onClick={ (e) => this.selectRoom(room, e) }>{room.name}</div>
-  		  	  	);
-			  })}
-		  </ul>
-		  <form onSubmit={ (e) => this.createRoom(e) }> Start a new chat room:
-		  	<input id='crname' type='text' placeholder='e.g. My Room' value={this.state.newRoomName} onChange={ (e) => this.handleNameChange(e) } />
-		  	<input type='submit' value='Create Room' />
-		  </form>
-		</div>
-	);
+    return(
+        <div className='roomlist'>
+          <ul>{this.state.rooms.map( (room, index) => {
+                return(
+                    <div className='room' key={index} onClick={ (e) => this.selectRoom(room, e) }>{room.name}</div>
+                );
+              })}
+          </ul>
+          <form onSubmit={ (e) => this.createRoom(e) }> Start a new chat room:
+            <input id='crname' type='text' placeholder='e.g. My Room' value={this.state.newRoomName} onChange={ (e) => this.handleNameChange(e) } />
+            <input type='submit' value='Create Room' />
+          </form>
+        </div>
+    );
   }
 }
 

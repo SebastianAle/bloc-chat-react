@@ -28,21 +28,21 @@ class MessageList extends Component {
   render() {
   	const activeRoomKey = this.props.activeRoomKey;
 
-	return( 
-		<div>
-			<ul>
-    			{this.state.messages.map( (message, index) => {
-    				if (activeRoomKey === "") {
-    					return null
-    				} else if (message.roomId == activeRoomKey) {
-       				  	return (
-       				  		<li className="message" key={index}>{message.username}: {message.content}</li>
-       				  	)
-       				}
-       			})}
-       		</ul>
-		</div>
-	);
+  	return( 
+  		<div>
+  			<ul>
+      			{this.state.messages.map( (message, index) => {
+      				if (activeRoomKey === "") {
+      					return null;
+      				} else if (message.roomId == activeRoomKey) {
+         				  return (
+         				  	<li className="message" key={index}>{message.username}: {message.content}</li>
+         				  );
+         			}
+         		})}
+        </ul>
+  		</div>
+  	);
   }
 }
 
